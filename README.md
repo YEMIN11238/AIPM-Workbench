@@ -62,10 +62,9 @@ AIPM 将产品工作里的对话、文件和执行组织在一个 macOS 工作�
 | **视频创作** | 需求、风格、时长、画幅和素材 | 同项目讨论与分镜，模型创作交接本地制片 | 分镜、源码、内嵌成片、历史版本与导出包 |
 | **GEO 内容运营** | 客户事实、来源、关键词和选题 | 形成主稿，适配头条、搜狐、知乎、36氪，人工审阅 | 主稿、平台稿件、审核记录与九文件导出包 |
 | **产品梳理与文档** | 想法、用户问题和已有证据 | 整理需求池、竞品、MVP、立项与 PRD，阶段确认 | 可编辑文档、证据与历史版本 |
-| **简历检查** | 用户主动输入的简历 | 检查与优化，在本地编辑页继续修改 | 建议、草稿与八套 PDF 模板 |
 | **大肥鱼后台** | 独立云端连接、账号和模型配置 | 经 SSH 隧道进入云端 AstrBot 原版后台 | 可继续管理的后台与连接状态 |
 
-介绍页中的九张功能卡可以打开输入、执行方式、产物与实际界面说明。主要业务共用模型配置，大肥鱼保留独立的远程凭据。
+介绍页中的八张功能卡可以打开输入、执行方式、产物与实际界面说明。主要业务共用模型配置，大肥鱼保留独立的远程凭据。
 
 ## 六阶段产品开发
 
@@ -93,7 +92,7 @@ PRD 体检 → 技术适配 → 后端 MVP → 正式前端 → 上线部署 →
 
 <table>
 <tr><td width="50%"><strong>Agent Blueprint · 17 个组件与资料</strong><br><img src="docs/assets/blueprint-library.png" alt="Blueprint 组件资料实际页面" /></td><td width="50%"><strong>视频创作 · 讨论与作品在同页</strong><br><img src="docs/assets/video.png" alt="视频工作区实际页面" /></td></tr>
-<tr><td><strong>GEO · 从事实到内容稿件</strong><br><img src="docs/assets/geo.png" alt="GEO 内容运营实际页面" /></td><td><strong>简历 · 本地检查和编辑</strong><br><img src="docs/assets/resume.png" alt="简历检查实际页面" /></td></tr>
+<tr><td><strong>GEO · 从事实到内容稿件</strong><br><img src="docs/assets/geo.png" alt="GEO 内容运营实际页面" /></td><td><strong>产品梳理 · 从需求到 PRD</strong><br><img src="docs/assets/discovery.png" alt="产品梳理与文档实际页面" /></td></tr>
 </table>
 
 截图来自真实启动的独立演示工作区，没有加载私人聊天、API 配置、简历或公司资料。演示项目用于展示界面，不包含虚构的生成成功记录。
@@ -139,7 +138,7 @@ npm run build:ui
 npm start
 ```
 
-当前桌面平台为 macOS，需要 Node.js 24+、Python 3 和相应原生编译环境。模型连接在本机应用设置里填写。视频、简历前端与部分调研资源的准备步骤见 [完整运行说明](docs/SETUP.md)。
+当前桌面平台为 macOS，需要 Node.js 24+、Python 3 和相应原生编译环境。模型连接在本机应用设置里填写。各模块与可选资源的准备步骤见 [完整运行说明](docs/SETUP.md)。
 
 **真实 API Key、凭据、私人运行目录和个人材料未上传。** 仓库包含源码、公开资源与适配器，私有课程和研究资料仍留在作者本机。
 
