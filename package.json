@@ -1,0 +1,37 @@
+{
+  "name": "aipm-workbench",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "main": "app/main.mjs",
+  "description": "A personal Agent workbench for AI product managers, built with Pi Agent and an application harness.",
+  "author": "张俊豪 (YEMIN11238)",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "build:ui": "node app/build-ui.mjs",
+    "build:app": "node app/build-app.mjs",
+    "test": "node --test app/startup.test.mjs app/runtime-paths.test.mjs app/resume-clinic-loader.test.mjs app/v2/app.test.mjs app/v2/modules.test.mjs app/model-api.test.mjs app/model-ipc.test.mjs app/pi-execution-limits.test.mjs app/pi-cost-guard.test.mjs app/video-media.test.mjs",
+    "check:public": "node scripts/check-public.mjs",
+    "site": "node scripts/serve-site.mjs"
+  },
+  "dependencies": {
+    "@earendil-works/pi-coding-agent": "1.3.0",
+    "diff": "9.0.0",
+    "dompurify": "3.4.11",
+    "liquid-glass-react": "^1.1.1",
+    "marked": "16.4.2",
+    "mermaid": "12.2.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "electron": "^44.0.0",
+    "esbuild": "^0.28.1",
+    "jsdom": "29.1.1",
+    "sharp": "^0.35.3",
+    "typescript": "5.8.3"
+  }
+}

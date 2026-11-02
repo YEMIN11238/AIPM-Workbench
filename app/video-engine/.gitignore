@@ -1,0 +1,4 @@
+node_modules/
+fixture-project/
+.cache/
+output.mp4

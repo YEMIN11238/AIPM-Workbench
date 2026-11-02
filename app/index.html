@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN" data-appearance="system" data-system-theme="light" data-solid-theme="light">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'">
+  <title>AIPM 工作台</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="neutral-theme.css"><link rel="stylesheet" href="document-content.css"><link rel="stylesheet" href="workbench.css"><link rel="stylesheet" href="blueprint.css"><link rel="stylesheet" href="blueprint-product.css"><link rel="stylesheet" href="blueprint-chat.css"><link rel="stylesheet" href="studio.css"><link rel="stylesheet" href="geo.css"><link rel="stylesheet" href="starter.css">
+</head>
+<body>
+  <header class="titlebar"><div class="title-right"><span class="local-dot"></span>本地工作空间<span class="version">V0.3</span></div></header>
+  <div class="workspace" id="workspace" data-page="home">
+    <nav class="icon-rail" aria-label="工作台导航">
+      <div class="rail-logo"><img src="assets/logo.png" alt="AIPM"></div>
+      <button id="nav-home" class="rail-button active" title="项目首页" aria-label="项目首页"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg></button>
+      <button id="nav-documents" class="rail-button" title="全部文档" aria-label="全部文档"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></button>
+      <button id="nav-blueprint" class="rail-button"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 8h4M3 16h4M17 12h4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
+      <button id="nav-geo" class="rail-button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 12h16M12 4c-5 5-5 11 0 16M12 4c5 5 5 11 0 16" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+      <button id="nav-skills" class="rail-button" title="产品 Skills" aria-label="产品 Skills"><svg viewBox="0 0 24 24"><path d="M12 3l2.3 6.7L21 12l-6.7 2.3L12 21l-2.3-6.7L3 12l6.7-2.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></button>
+      <div class="rail-spacer"></div><button id="rail-settings" class="rail-button" title="设置" aria-label="设置">⚙</button><span class="rail-profile">我</span>
+    </nav>
+    <aside class="sidebar">
+      <div class="brand"><div><strong>AIPM 工作台</strong><small>个人工作台</small></div></div>
+      <button class="primary new-project" id="new-project">＋ 新建项目</button>
+      <button id="sidebar-blueprint" class="studio-side-action"><span aria-hidden="true">↗</span><span><strong id="studio-nav-label"></strong><small id="studio-nav-hint"></small></span></button>
+      <button id="sidebar-starter" class="studio-side-action"><span aria-hidden="true">▸</span><span><strong>开发与上线</strong><small>需求体检 · 开发 · 预览 · 部署</small></span></button>
+      <button id="sidebar-geo" class="studio-side-action"><span aria-hidden="true">◎</span><span><strong id="geo-nav-label"></strong><small id="geo-nav-hint"></small></span></button>
+      <div class="section-label">我的项目 <span id="project-count">0</span></div><div id="projects" class="projects"></div>
+      <div class="sidebar-divider"></div><div class="section-label document-label"><span class="section-title" id="documents-label">最近文档</span><button id="folder" class="icon-button" title="在 Finder 中打开产出物目录">↗</button></div><div id="documents"></div>
+      <div class="sidebar-footer"><button id="settings" class="footer-button"><span>我的工作空间</span><span id="key-status" class="key-status">未配置 API</span></button><small>一个项目，一条主线</small></div>
+    </aside>
+    <section id="home-view" class="home-view">
+      <div class="home-toolbar"><button id="top-new-project" class="primary">＋ 新建项目</button><button id="search" class="secondary">⌕ 搜索内容</button></div>
+      <div class="home-panel"><div class="home-greeting"><span class="studio-eyebrow"><i></i>AIPM WORKSPACE</span><h1 id="greeting"></h1><p id="studio-subtitle"></p></div>
+        <div id="studio-start" class="studio-start"></div><div id="studio-summary" class="studio-summary"></div>
+        <div class="gallery-header"><span id="gallery-label">我的项目 <b id="gallery-count">0</b></span><span class="gallery-note" id="gallery-note">从想法，到有依据的文档</span></div>
+        <div id="project-gallery" class="project-gallery"></div><div id="document-library" class="document-library hidden"></div>
+        <div class="home-actions"><button id="home-new-project" class="secondary">＋ 新建项目</button><button id="all-documents" class="secondary">▤ 全部文档</button><button id="home-templates" class="secondary">◇ 从模板开始</button><button id="home-search" class="secondary">⌕ 搜索内容</button></div>
+        <p class="home-footnote">先一起聊清楚，再把确定的结论留下来。</p>
+      </div>
+    </section>
+    <section id="blueprint-view" class="blueprint-view"></section>
+    <section id="geo-view" class="geo-view"></section>
+    <main class="main">
+      <header class="main-header"><div><div class="eyebrow" id="breadcrumb">个人工作空间</div><h1 id="project-title">从一个想法开始</h1></div><button id="project-blueprint" class="secondary studio-project-engine"></button><span class="pill" id="stage-pill">等待创建产品</span></header>
+      <div class="tabs"><button id="chat-tab" class="tab active">对话梳理</button><button id="document-tab" class="tab">阶段文档 <span class="tab-dot"></span></button><span class="tab-note">每一步，都留下依据</span></div>
+      <section id="chat-view" class="chat-view"><div id="messages" class="messages"></div><div class="composer-wrap"><div class="composer"><textarea id="prompt" rows="3" placeholder="描述你的想法，或补充产品背景、用户问题和已有材料…"></textarea><div class="composer-bottom"><button id="attach" class="plain-button">＋ 添加材料</button><button id="templates" class="plain-button">从模板开始</button><span class="model">DeepSeek</span><button id="send" class="send-button" title="发送消息">↑</button><button id="stop" class="plain-button hidden">停止</button></div></div><div class="composer-hint"><span>Enter 发送 · Shift + Enter 换行</span><span id="run-status">先梳理，再产出</span></div></div></section>
+      <section id="document-view" class="document-view hidden"><div class="editor-toolbar"><span id="document-name">当前阶段文档</span><span id="save-state">尚未保存</span><button id="save-document" class="primary">保存 Markdown</button></div><div class="editor-actions"><div class="editor-modes" role="group" aria-label="文档模式"><button id="document-read" aria-pressed="false">阅读</button><button id="document-source" aria-pressed="true">源码</button></div><button id="document-copy" class="secondary">复制 Markdown</button><button id="document-quote" class="secondary">引用选段</button><button id="document-history" class="secondary">版本历史</button><button id="document-discard" class="secondary hidden">放弃草稿</button><button id="document-focus" class="secondary" aria-pressed="false">专注阅读</button></div><div id="document-preview" class="document-preview hidden"><div class="markdown-content"></div></div><textarea id="editor" spellcheck="false" placeholder="在这里编写阶段文档，或把对话中的回答保存为草稿。支持 Markdown。"></textarea><div class="editor-foot">保存在产品独立的「产出物」目录。保存后等待你确认，不会自动推进阶段。</div></section>
+    </main>
+    <aside class="rightbar"><div class="right-heading"><strong>产品推进</strong><span class="tiny-label">你掌握节奏</span></div><div id="stages" class="stages"></div><section class="review-card"><span class="eyebrow">阶段确认</span><h3 id="review-title">先把问题聊清楚</h3><p id="review-description">形成阶段文档后，在这里确认，再进入下一步。</p><button id="generate" class="secondary">整理当前阶段文档</button><button id="confirm" class="primary" disabled>确认并进入下一阶段</button></section><div class="evidence-heading"><div><strong>证据与材料</strong><span id="evidence-count" class="count">0</span></div><button id="add-evidence" class="icon-button" title="添加证据">＋</button></div><p class="evidence-hint">让结论可追溯，让假设有标记。</p><div id="evidence" class="evidence-list"></div><div class="skill-note"><span class="skill-symbol">◇</span><div><strong>项目立项 Skill · 已内置</strong><p>需求池 → 竞品 → MVP → 立项<br>PRD 专用 Skill 待接入</p></div></div></aside>
+  </div>
+  <dialog id="modal"><form id="modal-form"><div id="modal-content"></div><div class="modal-actions"><button type="button" id="cancel" class="secondary">取消</button><button type="submit" id="modal-submit" class="primary">确定</button></div></form></dialog>
+  <dialog id="search-modal"><div class="search-heading"><h2>搜索工作空间</h2><button id="close-search" class="icon-button" aria-label="关闭搜索">×</button></div><input id="search-query" type="search" placeholder="搜索项目、文档、证据或历史对话…" autocomplete="off"><div id="search-filters" class="search-filters" role="group" aria-label="搜索类型"><button data-search-type="all" aria-pressed="true">全部</button><button data-search-type="project" aria-pressed="false">项目</button><button data-search-type="document" aria-pressed="false">文档</button><button data-search-type="evidence" aria-pressed="false">证据</button><button data-search-type="message" aria-pressed="false">对话</button></div><div id="search-count" class="search-count" role="status"></div><div id="search-results"></div></dialog>
+  <div id="toast" role="status" class="toast hidden"></div>
+  <script type="module" src="renderer.js"></script>
+  <script type="module" src="assets/glass.js"></script>
+</body></html>

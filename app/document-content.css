@@ -1,0 +1,44 @@
+/* Scoped reading styles reuse the host's light, dark, and glass color tokens. */
+.markdown-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 820px;
+  min-width: 0;
+  margin-inline: auto;
+  padding: clamp(20px, 3vw, 36px);
+  color: var(--ink, #181b21);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.85;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.message-body.markdown-content { margin-inline: 0; padding: 16px 20px; font-size: 13px; }
+.markdown-content > :first-child { margin-top: 0; }
+.markdown-content > :last-child { margin-bottom: 0; }
+.markdown-content :is(h1, h2, h3, h4, h5, h6) { color: inherit; font-weight: 650; line-height: 1.45; margin: 1.7em 0 .65em; }
+.markdown-content h1 { font-size: 1.8em; }
+.markdown-content h2 { font-size: 1.45em; padding-bottom: .3em; border-bottom: 1px solid var(--line, #d7dce2); }
+.markdown-content h3 { font-size: 1.2em; }
+.markdown-content :is(h4, h5, h6) { font-size: 1em; }
+.markdown-content :is(p, ul, ol, blockquote, pre) { margin: 0 0 1.1em; }
+.markdown-content :is(ul, ol) { padding-left: 1.6em; }
+.markdown-content li + li { margin-top: .3em; }
+.markdown-content li > :is(ul, ol) { margin-top: .4em; margin-bottom: .4em; }
+.markdown-content li > p { margin-bottom: .5em; }
+.markdown-content a { color: var(--accent, #151923); text-decoration: underline; text-underline-offset: 3px; }
+.markdown-content :is(a, .markdown-table-scroll):focus-visible { outline: 2px solid var(--ink, #181b21); outline-offset: 3px; }
+.markdown-content blockquote { padding: .25em 0 .25em 1em; border-left: 3px solid var(--line, #d7dce2); color: var(--muted, #666b73); }
+.markdown-content blockquote > :last-child { margin-bottom: 0; }
+.markdown-content code { border-radius: 5px; padding: .15em .4em; background: var(--panel, #f3f3f5); font: .9em/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.markdown-content pre { box-sizing: border-box; max-width: 100%; overflow-x: auto; border: 1px solid var(--line, #d7dce2); border-radius: 10px; padding: 16px; background: var(--panel, #f3f3f5); white-space: pre; tab-size: 2; }
+.markdown-content pre code { padding: 0; border-radius: 0; background: transparent; font-size: .85em; }
+.markdown-content hr { border: 0; border-top: 1px solid var(--line, #d7dce2); margin: 1.7em 0; }
+.markdown-content .markdown-table-scroll { box-sizing: border-box; max-width: 100%; overflow-x: auto; margin: 0 0 1.2em; border: 1px solid var(--line, #d7dce2); border-radius: 10px; }
+.markdown-content table { width: 100%; border-collapse: collapse; text-align: left; font-size: .92em; }
+.markdown-content :is(th, td) { min-width: 110px; max-width: 360px; padding: 10px 13px; border-right: 1px solid var(--line, #d7dce2); border-bottom: 1px solid var(--line, #d7dce2); vertical-align: top; white-space: normal; overflow-wrap: anywhere; }
+.markdown-content th { background: var(--panel, #f3f3f5); font-weight: 600; }
+.markdown-content tr:last-child td { border-bottom: 0; }
+.markdown-content :is(th, td):last-child { border-right: 0; }
+.markdown-content [align="center"] { text-align: center; }
+.markdown-content [align="right"] { text-align: right; }

@@ -1,0 +1,12 @@
+{
+  "version": "v1.1.6-owner-avatar.2",
+  "sha256": "d46f6fbb9b3c8436961ef146c6deed6abfb64e4ed3a554cc50e911ae12d1c609",
+  "tests": 10,
+  "deployment": "source-patched, AstrBot restarted",
+  "qqAvatarChange": "confirmed",
+  "clientDisplay": "User confirmed and public QQ avatar visually matches uploaded blue-haired portrait with whale",
+  "nativeToolExecutor": "Actual decorated plugin returns explicit missing-image string",
+  "gatewayAcceptedAt": "2026-10-29T21:55:48+08:00",
+  "avatarCacheSha256": "2b5f325fa14c83b21501171ca6b1d5ad2f78eb85d096d41e50e913c67fd22e66",
+  "qqPublicAvatarSha256": "1b3728ad43f8e2af7aee1cac75d6b935f463a9bfff4dcd3e791b61f756baff1b"
+}

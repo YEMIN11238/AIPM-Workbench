@@ -1,0 +1,109 @@
+{
+  "tutorial": {
+    "url": "https://www.douyin.com/video/7699913996312399119",
+    "author": "niania风浪太大咧~",
+    "title": "手把手教你，QQ 接入 DeepSeek！24 小时在线 AI 聊天 bot。",
+    "durationSeconds": 838.034
+  },
+  "engine": {
+    "name": "AstrBot",
+    "version": "4.29.3",
+    "url": "https://github.com/AstrBotDevs/AstrBot/tree/v4.29.3"
+  },
+  "gateway": {
+    "name": "SnowLuma",
+    "version": "2.2.0",
+    "url": "https://github.com/SnowLuma/SnowLuma.Docker.Framework",
+    "requiresLuckyLilliaAuthToken": false
+  },
+  "companionPack": {
+    "tutorial": "https://www.douyin.com/video/7700563396340616488",
+    "tutorialAuthor": "泽轩604",
+    "url": "https://github.com/zexuanw958-svg/dafeiyu-config-pack",
+    "revision": "8c01b0361b8a4baff5be3d2bc67ed55108953086",
+    "integration": "Native AstrBot persona, provider and plugin APIs; no replacement chat or memory engine"
+  },
+  "localExtensions": {
+    "memeOwnerStickers": {
+      "name": "Owner private sticker collection",
+      "version": "5.2.10-owner-stickers.1",
+      "basedOn": {
+        "url": "https://github.com/anka-afk/astrbot_plugin_meme_manager",
+        "revision": "c2295b9856b90f9699fb468220059a84b8d1b7cd",
+        "version": "5.2.10"
+      },
+      "path": "extensions/meme-owner-stickers/",
+      "archive": "extensions/meme-owner-stickers/meme_manager-v5.2.10-owner-stickers.1.zip",
+      "sha256": "85198d8ed2ff631d602dd12c560e4005b00841c353ccf38d66f6ae60e868c1c2",
+      "license": "MIT",
+      "description": "Optional platform-sticker-only collection filter before download, observation and vision; visible in native and plugin settings. Source scope, private pack selection and visual content review remain native configuration. Photos stored as custom stickers still require model filtering."
+    },
+    "seedAudioOwnerControl": {
+      "name": "Seed Audio owner voice control",
+      "version": "0.2.3-owner-control",
+      "basedOn": {
+        "url": "https://github.com/zexuanw958-svg/dafeiyu-config-pack",
+        "revision": "8c01b0361b8a4baff5be3d2bc67ed55108953086",
+        "path": "plugins/astrbot_plugin_seed_audio_tts",
+        "version": "0.2.0"
+      },
+      "path": "extensions/seed-audio-owner-control/",
+      "archive": "extensions/seed-audio-owner-control/astrbot_plugin_seed_audio_tts-v0.2.3-owner-control.zip",
+      "sha256": "c88294b85c7a1cbf29a508f0fabd13b0146b0087566c9feba8b0a524918a6348",
+      "license": "MIT",
+      "description": "Local patch to the author Seed Audio plugin for explicit owner-private text, once, voice and probability modes; visible persistent plugin configuration, native session TTS gating and cancellation of stale synthesis. Singing and the original provider implementation are unchanged. Service availability is reported separately from text preference and single-reply authorization. Common one-reply requests and current text alongside a QQ quote are supported. Control audit excludes message content and credentials. Tested offline; no replacement chat or memory engine."
+    },
+    "bilibiliBasicStickers": {
+      "name": "Owner Bilibili basic sticker collection",
+      "version": "0.1.0",
+      "path": "extensions/bilibili-basic-stickers/",
+      "archive": "extensions/bilibili-basic-stickers/astrbot_plugin_bilibili_basic_stickers-v0.1.0.zip",
+      "sha256": "349028b40a6ae1023d48577400adadf0b7f8e9e404af58cff92deddcc49784b7",
+      "dependency": "meme_manager v5.2.10-owner-stickers.1 and AstrBot4.29.3 APIs",
+      "scope": "Explicit owner private requests; QQ and complete UMO must be configured",
+      "source": "https://api.bilibili.com/x/emote/package?business=reply&ids=2",
+      "supportedPackId": "bilibili-basic-tv",
+      "supportedImages": 11,
+      "description": "Fixed public TV basic emotes only; no Bilibili account, arbitrary URL, UP search or paid pack. Native locked image writes and owner-only pack selection; no background polling or model classification.",
+      "validation": "33 offline tests independently passed; Pillow13 cloud decode verified; official-source download11/11 on cloud; QQ image send API accepted, client confirmation pending."
+    },
+    "qqProfileAvatarTransport": {
+      "name": "QQ profile cross-container avatar transport",
+      "version": "v1.1.6-owner-avatar.2",
+      "basedOn": {
+        "url": "https://github.com/Zhalslar/astrbot_plugin_qqprofile",
+        "version": "1.1.6"
+      },
+      "path": "extensions/qqprofile-avatar-transport/",
+      "archive": "extensions/qqprofile-avatar-transport/astrbot_plugin_qqprofile-v1.1.6-owner-avatar.2.zip",
+      "sha256": "d46f6fbb9b3c8436961ef146c6deed6abfb64e4ed3a554cc50e911ae12d1c609",
+      "description": "Native Image resolver and OneBot base64 inline bytes for avatars. Separate command and LLM tool: explicit missing-image, read failure, gateway rejection or gateway acceptance result. Acceptance is not a claim of verified QQ display. Admin-only controls retained.",
+      "validation": "10 focused tests passed; actual decorated plugin + native executor string result verified; live QQ gateway accepted original image; cache SHA256 matches original; user and public QQ avatar visually confirm new portrait."
+    }
+  },
+  "runtime": {
+    "location": "dedicated-cloud-server",
+    "system": "Ubuntu 22.04 or 24.04",
+    "architecture": "x86_64",
+    "directory": "/opt/aipm-dafeiyu",
+    "transport": "OpenSSH local forwarding",
+    "assets": "cloud/"
+  },
+  "ownership": "Official AstrBot owns conversation, persona, history and model requests. SnowLuma connects QQ. Workbench owns navigation, isolated credential storage, explicit deployment and local SSH forwarding.",
+  "verification": {
+    "local": "Keyless configuration and lifecycle checks; live service state is verified separately in the native consoles",
+    "required": "Cloud account, server, verified SSH identity, native setup and QQ login, then owner-initiated conversation, media delivery and memory tests"
+  },
+  "previous": {
+    "tutorial": "https://www.douyin.com/video/7698403173999992485",
+    "bridge": "https://github.com/leonathan369-droid/qq-bridge",
+    "revision": "966ef411ce4508c31151b98cf64d8150493cdcdc",
+    "gateway": "LuckyLilliaBot 8.3.2",
+    "state": "inactive; data retained"
+  },
+  "platformLimits": {
+    "bilibili": "Not connected",
+    "douyin": "Not connected",
+    "crossPlatformMemory": "Not configured or verified"
+  }
+}

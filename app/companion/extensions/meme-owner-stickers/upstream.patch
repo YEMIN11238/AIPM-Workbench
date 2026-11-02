@@ -1,0 +1,182 @@
+diff --git a/README.md b/README.md
+index 7ecf0a7..0c8a51e 100644
+--- a/README.md
++++ b/README.md
+@@ -193,6 +193,35 @@ Cloudflare R2 使用 MinIO Python SDK 接入 S3 API，不依赖 `boto3` / `botoc
+ 
+ 在**设置中心 → 自动收集**开启，并选择支持图片输入的视觉模型。插件会识别收到的图片，从目标表情包的现有分类中选择合适的分类，并进行去重。
+ 
++### 本地补丁：仅收集平台明确标记的表情
++
++本地版本 `v5.2.10-owner-stickers.1` 基于上游 `c2295b9856b90f9699fb468220059a84b8d1b7cd`，增加 `auto_collect.only_platform_stickers`，默认 `false` 保留上游行为。开启后，只允许原始 OneBot 图片段中带有明确表情标记的顶层图片进入原有识图流程。普通图片、缺少标记、原始图片段与消息图片无法逐一对应的情况，会在下载、创建快照、累计出现次数和调用视觉模型前跳过。重复发送普通照片或截图不会绕过此筛选。仅存在于引用或转发中的图片不会被递归收集。
++
++可在 AstrBot 原版插件配置页打开此项，并把来源范围设为完整的主人私聊 UMO、把目标包设为独立私人图库。配置示例：
++
++```json
++{
++  "auto_collect": {
++    "enabled": true,
++    "only_platform_stickers": true,
++    "scope": ["my-qq:FriendMessage:123456"],
++    "target_pack_id": "owner-private-memes",
++    "vision_provider_id": "your-image-capable-provider"
++  }
++}
++```
++
++平台未明确标记的真实表情也会被跳过，可另行手动导入。把照片或截图先存成 QQ 自定义表情后，平台可能同样给它表情标记；这时仍由原有视觉审核规则判断内容。可追加明确拒收照片、聊天及界面截图的审核要求，并在不确定时拒收。平台标记不证明图片内容，识图也不能保证零误判。
++
++该补丁没有修改原有视觉分类、去重、图库选择与表情发送逻辑，也不修改模型 Key、语音、人设或其他插件。新增跳过日志只包含固定原因和图片数量。离线验证使用合成图片与外部接口桩，执行真实的提交、快照、后台队列、识图请求及待审保存路径：
++
++```sh
++python3 -m unittest discover -s tests -p test_owner_sticker_only.py -v
++node --test tests/frontend/settings-mode.test.mjs
++```
++
++后端测试需要 Pillow，覆盖收集门控与设置编辑保留；前端测试覆盖完整 schema 的设置分组和收集流程入口。不启动 AstrBot 服务，也不联网或读取用户图片。
++
+ **可选的内容审核**位于**自动收集 → 视觉识别与内容审核**，也可从流程图的“内容审核”或“审核提示词”按钮进入。默认关闭；开启后在同一次视觉识别中追加审核提示词，不增加模型调用次数。默认规则过滤色情、血腥暴力、明显脏话辱骂等内容，可自行修改，清空提示词时使用默认规则。未通过的图片不会进入待审核列表或自动入包；与人工审核开关独立，不重新处理已有图库或待审核图片。
+ 
+ 平台明确标记为表情的图片按配置抽样识别；普通图片或缺少平台分类的图片首次仅记录，重复出现后逐步提高识别概率。
+diff --git a/_conf_schema.json b/_conf_schema.json
+index 38b4e98..b629d9f 100644
+--- a/_conf_schema.json
++++ b/_conf_schema.json
+@@ -259,6 +259,12 @@
+         "default": false,
+         "hint": "默认关闭。开启后仅处理符合来源范围、冷却和抽样条件的图片"
+       },
++      "only_platform_stickers": {
++        "description": "只收集平台明确标记的表情",
++        "type": "bool",
++        "default": false,
++        "hint": "开启后，普通图片、缺少表情标记或原始图片段无法对应的消息会在下载、记录出现次数和调用识图模型前跳过。可能漏收平台未标记的真实表情。照片被保存为自定义表情后仍需视觉模型判断；此开关不能保证识图绝不误判。"
++      },
+       "vision_provider_id": {
+         "description": "自动收集视觉模型 Provider ID",
+         "type": "string",
+diff --git a/backend/auto_collect.py b/backend/auto_collect.py
+index ff23492..858e104 100644
+--- a/backend/auto_collect.py
++++ b/backend/auto_collect.py
+@@ -106,6 +106,7 @@ class AutoCollectManager:
+         """
+         self.plugin = plugin
+         self.enabled = bool(config.get("enabled", False))
++        self.only_platform_stickers = bool(config.get("only_platform_stickers", False))
+         self.manual_review = bool(config.get("manual_review", True))
+         self.content_review_enabled = bool(config.get("content_review_enabled", False))
+         self.content_review_prompt = (
+@@ -379,6 +380,20 @@ class AutoCollectManager:
+                         else:
+                             uncertain_images.append((image, False))
+                     candidates = marked_images + uncertain_images
++        if self.only_platform_stickers:
++            marked_candidates = [(image, marked) for image, marked in candidates if marked]
++            skipped = len(candidates) - len(marked_candidates)
++            if skipped:
++                self.counters["unmarked_image"] = (
++                    self.counters.get("unmarked_image", 0) + skipped
++                )
++                logger.info(
++                    "[meme_manager] 自动收集仅接受平台表情：跳过 %s 张普通或未标记图片",
++                    skipped,
++                )
++            candidates = marked_candidates
++            if not candidates:
++                return False
+         if self.queue.qsize() + len(self._snapshot_tasks) >= QUEUE_SIZE:
+             self.counters["queue_full"] = self.counters.get("queue_full", 0) + 1
+             logger.info(
+diff --git a/metadata.yaml b/metadata.yaml
+index eae0f5c..155ced0 100644
+--- a/metadata.yaml
++++ b/metadata.yaml
+@@ -6,7 +6,7 @@ desc: >-
+   支持官方及社区资源包安装、多表情包管理、AI 智能发送、自动收集、
+   会话与人格选包、云端同步，以及 prompt 自动维护。
+ help: 功能：1. AI自动发送表情包 2. WebUI插件页面管理与资源广场 3. /表情管理 恢复默认表情包 4. /表情管理 查看图库 5. /表情管理 添加表情 [类别] 6. /表情管理 同步到云端 7. /表情管理 从云端同步 8. /表情管理 同步状态
+-version: 5.2.10
++version: v5.2.10-owner-stickers.1
+ author: anka
+ repo: https://github.com/anka-afk/astrbot_plugin_meme_manager
+ astrbot_version: ">=4.17.0"
+diff --git a/pages/app/settings/config.js b/pages/app/settings/config.js
+index baba3f9..21ffcc2 100644
+--- a/pages/app/settings/config.js
++++ b/pages/app/settings/config.js
+@@ -35,17 +35,18 @@ async function initPluginConfig() {
+   const collectionSteps = [
+     [
+       "来源与目标",
+-      "符合范围的聊天图片进入收集；目标包决定分类依据和收录位置。",
++      "符合范围的聊天图片进入收集；可仅收平台明确标记的表情，目标包决定分类依据和收录位置。",
+       "collect",
+       [
+         ["enabled", "收集开关"],
++        ["only_platform_stickers", "仅收平台表情"],
+         ["scope", "来源范围"],
+         ["target_pack_id", "目标表情包"],
+       ],
+     ],
+     [
+       "采样与间隔",
+-      "先限制每条消息的图片数，再抽样并检查来源冷却。抽样概率仅作用于平台表情；普通图片首次只记录，重复出现后逐步提高识别概率。",
++      "先限制每条消息的图片数，再抽样并检查来源冷却。抽样概率仅作用于平台表情；开启仅收平台表情时，普通及未标记图片直接跳过。未开启时，普通图片首次只记录，重复出现后逐步提高识别概率。",
+       "collect-limits",
+       [
+         ["max_images_per_message", "单条图片上限"],
+@@ -259,9 +260,10 @@ async function initPluginConfig() {
+       id: "collect",
+       category: "collect",
+       title: "来源与目标",
+-      description: "决定是否收集、从哪里收集，以及使用哪个表情包的分类。",
++      description: "决定是否仅收平台表情、从哪里收集，以及使用哪个表情包的分类。",
+       prefixes: [
+         "auto_collect.enabled",
++        "auto_collect.only_platform_stickers",
+         "auto_collect.scope",
+         "auto_collect.target_pack_id",
+       ],
+diff --git a/tests/frontend/settings-mode.test.mjs b/tests/frontend/settings-mode.test.mjs
+index 8b0e871..c40900c 100644
+--- a/tests/frontend/settings-mode.test.mjs
++++ b/tests/frontend/settings-mode.test.mjs
+@@ -28,6 +28,37 @@ const {
+ const collectionSteps = vm.runInNewContext(
+   `${source.slice(source.indexOf("  const collectionSteps = ["), source.indexOf("  for (const ["))}; collectionSteps`,
+ );
++const schema = JSON.parse(await readFile(
++  new URL("../../_conf_schema.json", import.meta.url),
++  "utf8",
++));
++
++test("every schema field has exactly one settings-center group", () => {
++  const pending = [["", schema]];
++  while (pending.length) {
++    const [prefix, items] = pending.pop();
++    for (const [key, field] of Object.entries(items)) {
++      const path = prefix ? `${prefix}.${key}` : key;
++      if (field.type === "object") {
++        pending.push([path, field.items || {}]);
++        continue;
++      }
++      const matches = groups.filter((group) => group.prefixes.some(
++        (candidate) => candidate.endsWith(".")
++          ? path.startsWith(candidate)
++          : path === candidate,
++      ));
++      assert.equal(matches.length, 1, path);
++    }
++  }
++});
++
++test("collection workflow exposes strict platform-sticker filtering", () => {
++  const sourceStep = collectionSteps.find((step) => step[2] === "collect");
++  assert.ok(sourceStep[3].some(([path]) => path === "only_platform_stickers"));
++  assert.ok(collectionSteps.find((step) => step[2] === "collect-limits")[1]
++    .includes("仅收平台表情"));
++});
+ 
+ test("collection workflow opens the group containing each linked setting", () => {
+   for (const [, , groupId, settings] of collectionSteps) {

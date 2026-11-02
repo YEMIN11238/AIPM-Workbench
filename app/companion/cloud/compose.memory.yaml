@@ -1,0 +1,25 @@
+services:
+  ollama:
+    image: ollama/ollama:0.40.12@sha256:20d1bbfbabe1c97ba4b16301f08a20d8484bcf77047742a3cb71c613d8e12d0b
+    platform: linux/amd64
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 1536m
+    cpus: 1
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: "1"
+      OLLAMA_KEEP_ALIVE: 5m
+    expose:
+      - "11434"
+    volumes:
+      - ./private/ollama-data:/root/.ollama
+    networks:
+      - companion
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"

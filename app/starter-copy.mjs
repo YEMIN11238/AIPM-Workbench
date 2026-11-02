@@ -1,0 +1,20 @@
+/** Product-facing Chinese copy for the complete starter-kit workflow. */
+export const starterCopy = Object.freeze({
+  tab: 'AI 产品开发', title: '从需求聊到上线，每一步都有结果', subtitle: '结合完整 Starter Kit 与三份手册，由 Pi Agent 执行。能读写项目、执行开发测试、启动预览，再由你验收推进。',
+  projects: '开发项目', create: '开始完整流程', name: '产品名称', idea: '用一句话说想做什么', source: '也可以从已有方案或产品开始', selectSource: '选择已有材料', importSource: '带入完整开发流程',
+  phases: ['PRD 体检', '技术适配', '后端 MVP', '正式前端', '上线部署', '收尾'],
+  placeholder: '直接说想法、回答问题，或说“继续当前阶段”。可以随时问哪里看不懂。', send: '发送并执行', stop: '停止', thinking: '正在推进…',
+  welcome: '先把要做的产品说清楚', welcomeText: '我会按当前阶段加载原版规则和手册。需要你判断时问你；开发、运行、测试和整理文件由执行器完成。',
+  files: '查看文件', library: '原版工具包与手册', close: '收起资料', folder: '打开项目文件夹', importPrd: '导入 PRD（Word / PDF / 文本）',
+  next: '继续当前阶段', nextPrompt: '请读取当前项目状态、需求与已有文件，按工具包推进当前阶段。先说明下一步；必要问题最多五个，给推荐。已经明确的决定不要重问。',
+  preview: '打开预览', stopPreview: '停止预览', captureDesktop: '记录桌面截图', captureMobile: '记录手机截图',
+  samples: '真实样例与评分', sampleHint: '这是同一 API 实际生成的样例。请按产品类型的各个维度打 1–3 分，并标记不能接受的样例；至少五条评分后，才可以完成核心开发阶段。', score: '选择分数',
+  review: '验收当前阶段', accept: '我已核对，进入下一阶段', finish: '我已核对，完成收尾', report: '本阶段实际结果', unresolved: '仍需解决',
+  checks: { scope: '本阶段的范围与功能符合我的要求', evidence: '我已查看截图、入口或操作步骤', functional: '我已按步骤实际验证关键流程', secrets: '产物和页面没有暴露密钥', persistence: '需要保存的数据和决策已经保留' },
+  completed: '完整流程已收尾；记录与代码可继续查看。',
+  approval: '这一步需要你确认', approve: '核对范围与费用后执行这一条', reject: '不执行，继续讨论', approvalHint: '只批准下面这一条操作，不会自动批准后续发布、付费或删除。',
+  cloud: '配置上线凭证', cloudHint: '模型始终复用工作台 API。云平台操作权仅在上线阶段单独配置，凭证加密保存，不回显、不写聊天。',
+  view: '阅读', sourceView: '源码', noFile: '选择文件查看原文或截图。',
+  statuses: { idle: '可以继续', running: '正在执行', waiting: '等待你确认', failed: '本轮未完成', cancelled: '已停止', interrupted: '已中断，可继续' },
+  continueAfterGate: phase => `当前阶段已经人工确认，现在进入“${phase}”。点击“继续当前阶段”即可开始。`,
+})

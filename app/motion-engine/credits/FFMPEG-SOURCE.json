@@ -1,0 +1,8 @@
+{
+  "source": "已安装 imageio-ffmpeg 包中官方静态 FFmpeg 二进制",
+  "originalPath": "/Users/zhangjunhao/Documents/Codex/2026-10-20/referenced-chatgpt-conversation-this-is-an/outputs/产品介绍视频/准备/python-tools/imageio_ffmpeg/binaries/ffmpeg-macos-aarch64-v7.1",
+  "sha256": "6d175a4743ca50256e89a8cdd731100f9cee33bd79aeea46894d209410dc6617",
+  "binaryLicense": "GPL v2 or later, per ffmpeg -L",
+  "packageLicenseIsSeparate": "imageio-ffmpeg Python wrapper uses BSD-2-Clause; not the binary license",
+  "usage": "本机完整动效检查滤镜；不用于上传用户资料"
+}

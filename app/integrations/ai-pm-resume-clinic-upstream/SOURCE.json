@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/Innate-Labs/ai-pm-resume-clinic",
+  "commit": "f1f44559d92a1c7259b005dd6c7af25ab810db72",
+  "tree": "6cd09c13abcc7dc2616838e3e305209730de64ec",
+  "license": "MIT",
+  "originalSourceArchive": "upstream-source.tar.gz",
+  "archiveSha256": "52289b6cbd7f3ac96886eae0b77b30ccaf85c116e51f16dea770d8134054fcbf",
+  "adapterFiles": [
+    ".gitignore",
+    "eslint.config.js",
+    "index.html",
+    "package.json",
+    "src/App.css",
+    "src/components/VditorEditor.tsx",
+    "src/contexts/AppSettingsContext.tsx",
+    "src/index.css",
+    "src/lib/openrouter.ts",
+    "src/pages/ResumeEditorPage.tsx",
+    "src/pages/ReviewPage.tsx",
+    "src/pdf-builder/lib/compressResume.ts",
+    "vite.config.ts",
+    "src/lib/desktopHost.ts",
+    "adapter.test.mjs",
+    "build-desktop.mjs",
+    "prepare-desktop-assets.mjs",
+    "ADAPTER.md",
+    "SOURCE.json"
+  ],
+  "desktopEntry": "dist/index.html",
+  "desktopBuild": "npm run build:desktop",
+  "validation": [
+    "npm run test:adapter",
+    "npm run build:desktop",
+    "npx eslint (adapter and changed TypeScript files)"
+  ],
+  "notes": [
+    "The immutable archive contains the complete unmodified upstream Git tree.",
+    "The working source adds the AIPM desktop IPC adapter; standalone web configuration remains supported.",
+    "No API keys, personal resume contents or workbench chat data are bundled.",
+    "Vditor runtime assets are copied from the package-lock-pinned dependency by prepare-desktop-assets.mjs.",
+    "The built dist directory is retained with the desktop source; node_modules remains ignored."
+  ],
+  "adapterPatch": "desktop-adapter.patch",
+  "adapterPatchSha256": "10427d8ce68318844aaf254b3a89357282645ab4f00eb5bcaf3ed24b95b812d1",
+  "desktopRuntimeArtifacts": [
+    "dist/index.html",
+    "dist/assets/",
+    "dist/vendor/"
+  ]
+}

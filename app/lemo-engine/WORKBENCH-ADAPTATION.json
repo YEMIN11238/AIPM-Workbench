@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "upstream": "https://github.com/lemomo-ai/lemo-opuscar",
+  "adaptations": {
+    "core/render/page.mjs": "Restrict render browsing to this invocation loopback server; deny remote requests, downloads, popups and WebSockets; require finite DUR<=3600 and match optional host LEMO_EXPECTED_DURATION.",
+    "core/render/serve.mjs": "Reject linked path segments and non-files before static reads.",
+    "bin/ffmpeg": "Existing full imageio_ffmpeg 7.1 binary, reused locally, with original license.",
+    "bin/ffprobe": "Fixed local Remotion compositor probe; Node injects its adjacent dylib path."
+  },
+  "hashes": {
+    "core/render/page.mjs": "61b6decbfa75ada9675dc5dbd96ef786cb49c78c6f9c93e5ce3d549b3c779aa2",
+    "core/render/serve.mjs": "5f5cda103665fac7dc3f59a171b7c39c277b166dd0f67e87de9b6614e249a12d",
+    "bin/ffmpeg": "6d175a4743ca50256e89a8cdd731100f9cee33bd79aeea46894d209410dc6617",
+    "bin/ffprobe.mjs": "8c5b1bcc016770f7d40870939d64f7fa62cf2602056b62a0e25fb059d48db7a1"
+  },
+  "source": "413a6bd6d78ebd3bdd5abaec9538a26867f890df",
+  "pythonEnvironment": "/Users/zhangjunhao/.local/share/aipm-lemo-py",
+  "pythonLock": "python-installed.txt",
+  "voicePack": "VOICE-PACK.json",
+  "validation": [
+    "tests/runtime.test.mjs",
+    "tests/out/browser-smoke.json",
+    "tests/out/media-smoke.json",
+    "tests/out/voice-smoke.json"
+  ],
+  "optionalNotInstalled": [
+    "Whisper model",
+    "HDRI pack",
+    "instrument sample packs",
+    "upstream demo media listed in SOURCE.json"
+  ]
+}

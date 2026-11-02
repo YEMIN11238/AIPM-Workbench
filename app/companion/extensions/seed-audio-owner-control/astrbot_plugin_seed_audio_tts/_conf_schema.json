@@ -1,0 +1,15 @@
+{
+  "owner_session": {
+    "type": "string",
+    "description": "允许控制和接收普通语音的主人私聊",
+    "hint": "必须显式填写完整私聊会话 ID，例如 dafeiyu-qq:FriendMessage:3202619225；留空或群聊会话时不会发普通语音。",
+    "default": ""
+  },
+  "reply_mode": {
+    "type": "string",
+    "description": "普通回复方式",
+    "options": ["text", "voice", "auto"],
+    "hint": "text 为文字，voice 为持续语音，auto 沿用提供商概率。自动及持续语音仍受原版会话 TTS 开关限制；明确的本次语音只覆盖当前一条，不改变保存模式。",
+    "default": "text"
+  }
+}

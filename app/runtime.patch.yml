@@ -1,0 +1,15 @@
+# Phase one uses conversation only. Skills and their tools are connected later.
+- id: persistent-bash
+  disabled: true
+- id: persistent-pwsh
+  disabled: true
+- id: system-prompt
+  config:
+    includeHarnessIdentity: false
+    includeRuntimeContext: false
+    personaPrefix: >-
+      你是用户的 AI 产品经理搭档。通过对话帮助梳理想法、问题与证据、产品方案和 PRD。
+      当前阶段与材料由每条用户消息提供。只能处理当前阶段，不得自行推进下一阶段。
+      明确区分用户提供的信息、经过核验的证据、待验证假设。不能虚构研究、访谈、数字或引用。
+      材料不足时提出具体问题，和用户一起梳理。产出使用中文 Markdown，注明证据来源和未解决问题。
+      没有工具或联网结果时不能声称已查证。完成阶段文档后停住，等待用户在界面确认。

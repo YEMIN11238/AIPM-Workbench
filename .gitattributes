@@ -1,0 +1,10 @@
+app/integrations/** linguist-vendored
+app/lemo-engine/** linguist-vendored
+app/motion-engine/** linguist-vendored
+app/painted-engine/** linguist-vendored
+app/assets/*.js linguist-generated
+app/assets/*.js.LEGAL.txt linguist-generated
+app/companion/extensions/** linguist-vendored
+docs/assets/*.png binary
+*.mjs text eol=lf
+*.md text eol=lf
