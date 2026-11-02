@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "scope": "Sanitized summaries of existing technical verification; no conversations, credentials, project IDs or personal file paths.",
+  "desktop": {
+    "verifiedAt": "2026-10-21T07:04:47.184Z",
+    "application": "macOS TextEdit",
+    "actions": [
+      {
+        "action": "apps",
+        "status": "done"
+      },
+      {
+        "action": "inspect",
+        "status": "done"
+      },
+      {
+        "action": "click",
+        "status": "done"
+      },
+      {
+        "action": "inspect",
+        "status": "done"
+      },
+      {
+        "action": "type_text",
+        "status": "done"
+      },
+      {
+        "action": "inspect",
+        "status": "done"
+      },
+      {
+        "action": "capture",
+        "status": "done"
+      }
+    ],
+    "screenshotRecorded": true,
+    "scope": "One supported application and one recorded task; not a universal desktop success claim."
+  },
+  "blueprint": {
+    "verifiedAt": "2026-10-21",
+    "generatedCode": true,
+    "productVersion": 2,
+    "runtimeRuns": 2,
+    "previousVersionRetained": true,
+    "staticReview": "needs_review",
+    "componentEntryChecks": 17,
+    "componentChecksUsedModelCalls": 0
+  },
+  "development": {
+    "recordedPhase": 0,
+    "tools": [
+      "read",
+      "read",
+      "record_rubric",
+      "report_stage"
+    ],
+    "humanAcceptanceRecorded": false,
+    "scope": "Phase 0 tool and evidence integration; does not claim all six stages completed."
+  },
+  "videoProduction": {
+    "verifiedAt": "2026-10-26T04:02:28.916Z",
+    "status": "completed",
+    "steps": 6,
+    "output": {
+      "duration": 2,
+      "width": 320,
+      "height": 180,
+      "fps": 10,
+      "audio": true
+    },
+    "scope": "Existing local technical smoke; not an aesthetic quality score or a new paid model task."
+  }
+}
