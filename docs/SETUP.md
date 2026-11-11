@@ -68,7 +68,7 @@ npm run build:ui
 npm run build:app
 ```
 
-生成 dist/AIPM工作台.app。当前本地 app 加载当前 checkout，需要保留源码与依赖；不等同于可在任意机器直接运行的公证发行包。
+生成 dist/ORVYN.app。当前本地 app 加载当前 checkout，需要保留源码与依赖；不等同于可在任意机器直接运行的公证发行包。
 
 ## 预览介绍页
 
@@ -77,3 +77,5 @@ npm run site
 ```
 
 打开终端输出的本机地址。介绍页无模型调用、无数据提交表单。
+
+显示名称为 ORVYN，环境变量和默认数据目录沿用 AIPM 命名以兼容已有安装。构建后的应用为 dist/ORVYN.app；使用 `npm run build:app -- --install` 可安装到 /Applications/ORVYN.app。

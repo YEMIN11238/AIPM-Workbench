@@ -5,7 +5,7 @@
 | 层次 | 职责 | 代码入口 |
 | --- | --- | --- |
 | 桌面交互 | 聊天、侧栏、项目、模型选择与产物展示 | app/v2/app.mjs、app/v2/modules.mjs |
-| AIPM Harness | IPC 来源校验、生命周期、权限、任务限制与模块适配 | app/main.mjs、app/pi-ipc.mjs |
+| ORVYN Harness | IPC 来源校验、生命周期、权限、任务限制与模块适配 | app/main.mjs、app/pi-ipc.mjs |
 | Pi 执行 | 在项目上下文中调用文件、编辑、命令及工作台工具 | app/pi-service.mjs、app/pi-worker.mjs |
 | 专用任务 | 产品开发、Blueprint、调研、GEO、视频及简历 | app/*-service.mjs、app/resume-clinic/ |
 
@@ -37,3 +37,7 @@
 ## 公开版运行适配
 
 `runtime-paths.mjs` 解析 Node、Pi 包和数据目录，移除了作者机器的必需绝对路径。依赖在根目录安装，源码位于 app/。macOS 原生桥由 `build-native.mjs` 本机编译，`.app` 构建仍加载本 checkout，并非已经签名公证的独立安装包。
+
+## ORVYN 名称兼容
+
+公开名称为 ORVYN。现有应用标识、内部 IPC 与媒体协议、AIPM_* 环境变量和数据目录继续沿用，避免影响已有安装。macOS 启动时先保留旧名称供 Electron 初始化 Safe Storage，再在 ready 事件切换为 ORVYN；已有加密凭据无需重写。

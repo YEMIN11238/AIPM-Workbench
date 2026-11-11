@@ -93,7 +93,7 @@ export class VideoService {
   get(id) { const p = this._load(id); return { ...clone(p), projectDir: this._folder(id), budget: this._budget(p) } }
   list() { return readdirSync(this.root).filter(name => ID.test(name)).map(id => { const p = this.get(id); return { id, title: p.title, status: p.status, duration: p.duration, style: p.style, updatedAt: p.updatedAt, versions: p.versions.length, budget: p.budget } }).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)) }
   folder(id) { return this._folder(id) }
-  create({ title = 'AIPM 工作台介绍', brief = '', duration = 10, budgetYuan = 5, style = 'glass', width = 1920, height = 1080 } = {}) {
+  create({ title = 'ORVYN介绍', brief = '', duration = 10, budgetYuan = 5, style = 'glass', width = 1920, height = 1080 } = {}) {
     if (this.closed) throw new Error('视频服务已关闭')
     title = this._redactText(string(title, '视频标题', 100, true)); brief = this._redactText(string(brief, '制作要求', 10000))
     if (!Number.isFinite(duration) || duration < 1 || duration > 60 || !Number.isFinite(budgetYuan) || budgetYuan <= 0 || budgetYuan > 5 || !Number.isInteger(width) || width < 320 || width > 3840 || width % 2 !== 0 || !Number.isInteger(height) || height < 180 || height > 2160 || height % 2 !== 0 || style !== 'glass') throw new Error('请使用1至60秒、预算不超过5元的玻璃风格视频，宽320至3840、高180至2160，宽高均为偶数')

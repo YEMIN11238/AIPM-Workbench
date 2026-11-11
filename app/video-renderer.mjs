@@ -28,7 +28,7 @@ export function normalizeVideoProject(project){
  if(Math.abs(scenes.reduce((n,s)=>n+s.duration,0)-duration)>.011)throw new Error('分镜总时长须等于项目时长');
  const defaults={background:'#080e1b',accent:'#b7dcff',text:'#f6f8ff'};const palette={...defaults};
  for(const name of Object.keys(defaults)){const value=board.palette?.[name];if(value!==undefined){if(!hex(value))throw new Error('视频配色须为六位十六进制色值');palette[name]=value;}}
- return {title:string(project.title,160,board.title||'AIPM 工作台'),width,height,fps,duration,style:'glass',audioEnabled:project.audioEnabled!==false,assets:[],storyboard:{title:string(board.title,160,project.title||'AIPM 工作台'),voiceover:string(board.voiceover,2000),palette,scenes}};
+ return {title:string(project.title,160,board.title||'ORVYN'),width,height,fps,duration,style:'glass',audioEnabled:project.audioEnabled!==false,assets:[],storyboard:{title:string(board.title,160,project.title||'ORVYN'),voiceover:string(board.voiceover,2000),palette,scenes}};
 }
 async function insideFile(file,root){
  if(!isAbsolute(file))throw new Error('视频素材须为项目内的绝对路径');

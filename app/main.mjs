@@ -1,4 +1,5 @@
 /** Local Electron workbench with an independent cloud companion connection. */
+import { configureApplicationBrand, productName } from './app-branding.mjs'
 import { app, BrowserWindow, WebContentsView, ipcMain, shell, safeStorage, dialog, nativeTheme, clipboard, desktopCapturer, protocol } from 'electron'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -35,7 +36,7 @@ const directory = fileURLToPath(new URL('.', import.meta.url))
 const nativeGlass = process.platform === 'darwin' ? createRequire(import.meta.url)(join(directory, 'assets/native-glass.node')) : null
 const workspace = dataRoot
 const store = new ProjectStore(join(workspace, '产品'))
-app.setName('AIPM 工作台')
+configureApplicationBrand(app)
 app.setPath('userData', join(workspace, '.app-data'))
 let window, windowControls, active, busy = false, closing = false
 let blueprint, geo, blueprintProducts, blueprintChat, starter, pi, companion, companionView, companyResearch, video, lemo, videoStudio, resumeClinic
@@ -164,7 +165,7 @@ function openWindow() {
   companionRendererReady = false
   window = new BrowserWindow({
     width: 1420, height: 940, minWidth: 1100, minHeight: 720,
-    title: 'AIPM 工作台',
+    title: productName,
     backgroundColor: '#00000000',
     transparent: true,
     ...(process.platform === 'darwin' ? { visualEffectState: 'active' } : {}),
@@ -350,5 +351,5 @@ else if (claimCompanionInstance({ app, request: initialCompanionControl, submit:
     // A pending Lemo preparation may still attach a Pi chat; finish that bridge first.
     void Promise.all([resumeClosing, Promise.resolve(videoStudio?.close()).then(() => lemo?.close()).then(() => Promise.all([closeRuntime(), appearanceUpdates, blueprint?.close(), blueprintProducts?.close(), blueprintChat?.close(), geo?.close(), starter?.close(), pi?.close(), companion?.close(), companyResearch?.close(), video?.close()]))]).then(() => { videoMedia.close(); app.quit() }).catch(error => { closing = false; dialog.showErrorBox('关闭失败', error.message) })
   })
-  }).catch(error => { console.error('AIPM startup failed:', error.message); dialog.showErrorBox('工作台启动失败', error.message); app.exit(1) })
+  }).catch(error => { console.error('ORVYN startup failed:', error.message); dialog.showErrorBox('工作台启动失败', error.message); app.exit(1) })
 }

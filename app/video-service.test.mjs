@@ -7,13 +7,13 @@ import { VideoService } from './video-service.mjs'
 import { pricedVideoApi, videoRequestQuote, videoBudgetTotals, settleVideoEntry, VIDEO_MAX_OUTPUT_TOKENS } from './video-budget.mjs'
 
 const api = { model: 'deepseek-v4-pro', baseUrl: 'https://api.deepseek.com', apiKey: 'test-never-persist-this-secret' }
-const storyboard = () => ({ title: 'AIPM 工作台', voiceover: '从一个想法开始，和AI一起完成产品。', palette: { background: '#101827', accent: '#67E8F9', text: '#FFFFFF' }, scenes: [{ id: 'intro', duration: 5, title: 'AIPM 工作台', subtitle: '想法到执行', body: '中文对话', kind: 'hero', accent: '#67E8F9' }, { id: 'end', duration: 5, title: '让想法落地', subtitle: '', body: '', kind: 'outro', accent: '#67E8F9' }] })
+const storyboard = () => ({ title: 'ORVYN', voiceover: '从一个想法开始，和AI一起完成产品。', palette: { background: '#101827', accent: '#67E8F9', text: '#FFFFFF' }, scenes: [{ id: 'intro', duration: 5, title: 'ORVYN', subtitle: '想法到执行', body: '中文对话', kind: 'hero', accent: '#67E8F9' }, { id: 'end', duration: 5, title: '让想法落地', subtitle: '', body: '', kind: 'outro', accent: '#67E8F9' }] })
 function response({ usage = { prompt_tokens: 1000, completion_tokens: 500, total_tokens: 1500 }, finish = 'stop', content } = {}) { return new Response(JSON.stringify({ usage, choices: [{ finish_reason: finish, message: { role: 'assistant', content: content ?? JSON.stringify({ reply: '已保存两个镜头，可以修改或渲染。', storyboard: storyboard() }) } }] }), { status: 200, headers: { 'content-type': 'application/json' } }) }
 function setup(t, options = {}) {
   const root = mkdtempSync(join(tmpdir(), 'aipm-video-service-')), requests = [], updates = []
   const service = new VideoService({ root, getApi: () => ({ ...api }), onUpdate: project => updates.push(project), fetcher: async (...args) => { requests.push(args); return response() }, renderVideo: async ({ project, outputDir, onProgress }) => { onProgress({ phase: 'render', ratio: 0.5, message: '模拟可信渲染器' }); const videoPath = join(outputDir, 'video.mp4'), posterPath = join(outputDir, 'poster.png'), projectPath = join(outputDir, 'project.json'); writeFileSync(videoPath, 'owned mock output'); writeFileSync(posterPath, 'owned mock poster'); writeFileSync(projectPath, JSON.stringify(project.storyboard)); return { videoPath, posterPath, projectPath, duration: project.duration, width: project.width, height: project.height, fps: project.fps } }, ...options })
   t.after(async () => { await service.close(); rmSync(root, { recursive: true, force: true }) })
-  return { root, service, requests, updates, create: input => service.create({ title: 'AIPM 工作台', brief: '做一个玻璃风格介绍视频', ...input }), wait: async id => { await service.active.get(id)?.done; return service.get(id) } }
+  return { root, service, requests, updates, create: input => service.create({ title: 'ORVYN', brief: '做一个玻璃风格介绍视频', ...input }), wait: async id => { await service.active.get(id)?.done; return service.get(id) } }
 }
 
 test('budget accepts only the explicitly priced official route and reserves UTF8 bytes plus protocol margin', () => {
@@ -62,7 +62,7 @@ test('missing usage and invalid JSON or truncated completion retain charged boun
   const cases = [response({ usage: null }), response({ finish: 'length' }), response({ content: '{broken' })]
   const f = setup(t, { fetcher: async () => cases.shift() }), p = f.create(); f.service.saveStoryboard(p.id, { storyboard: storyboard() })
   f.service.send(p.id, '一次缺少用量的完整结果'); let result = await f.wait(p.id); assert.equal(result.status, 'idle'); assert.equal(result.budget.entries[0].status, 'uncertain')
-  f.service.send(p.id, '一次真实截断'); result = await f.wait(p.id); assert.equal(result.status, 'failed'); assert.match(result.error, /没有完整返回/); assert.equal(result.budget.entries[1].status, 'settled'); assert.equal(result.storyboard.title, 'AIPM 工作台')
+  f.service.send(p.id, '一次真实截断'); result = await f.wait(p.id); assert.equal(result.status, 'failed'); assert.match(result.error, /没有完整返回/); assert.equal(result.budget.entries[1].status, 'settled'); assert.equal(result.storyboard.title, 'ORVYN')
   f.service.send(p.id, '一次错误JSON'); result = await f.wait(p.id); assert.equal(result.status, 'failed'); assert.equal(result.budget.entries[2].status, 'settled'); assert.equal(result.storyboard.scenes.length, 2)
 })
 
@@ -94,7 +94,7 @@ test('assets are copied into the project and immutable rendered versions keep ac
   let project = f.service.addAssets(p.id, [{ path: source, name: '工作台页面' }]); assert.ok(project.assets[0].path.startsWith(join(f.service.folder(p.id), 'assets'))); assert.notEqual(project.assets[0].path, source)
   const plan = storyboard(); plan.scenes[0].assetId = project.assets[0].id; f.service.saveStoryboard(p.id, { storyboard: plan })
   const started = f.service.render(p.id); assert.equal(started.status, 'rendering'); project = await f.wait(p.id); assert.equal(project.status, 'completed'); assert.equal(project.versions[0].version, 'v1'); assert.equal(project.budget.trial.requestsUsed, 0); assert.ok(existsSync(project.versions[0].videoPath))
-  const revised = storyboard(); revised.title = '修订'; f.service.saveStoryboard(p.id, { storyboard: revised }); f.service.render(p.id); project = await f.wait(p.id); assert.equal(project.versions[1].version, 'v2'); assert.equal(project.versions[0].storyboard.title, 'AIPM 工作台')
+  const revised = storyboard(); revised.title = '修订'; f.service.saveStoryboard(p.id, { storyboard: revised }); f.service.render(p.id); project = await f.wait(p.id); assert.equal(project.versions[1].version, 'v2'); assert.equal(project.versions[0].storyboard.title, 'ORVYN')
   const symlink = join(f.root, 'link.png'); symlinkSync(source, symlink); assert.throws(() => f.service.addAssets(p.id, [{ path: symlink }]), /普通PNG/)
 })
 

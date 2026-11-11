@@ -1,14 +1,14 @@
 # 原创工作与第三方来源
 
-## AIPM 的原创部分
+## ORVYN 的原创部分
 
-张俊豪主导本项目的产品定位、需求与优先级、任务流程、工作台信息架构和界面设计，通过 AI 辅助开发实现 AIPM 的 Electron 宿主、任务与产物管理、主要模型配置、业务模块适配、受控桌面工具集成及验证规范。新增原创部分的权利见 COPYRIGHT.md。
+张俊豪主导本项目的产品定位、需求与优先级、任务流程、工作台信息架构和界面设计，通过 AI 辅助开发实现 ORVYN 的 Electron 宿主、任务与产物管理、主要模型配置、业务模块适配、受控桌面工具集成及验证规范。新增原创部分的权利见 COPYRIGHT.md。
 
 使用开源执行框架和专用工具属于明确的实现选择。产品原创性在上述产品与应用工作中体现，不将 Pi、上游项目、模型或第三方算法描述为自行发明。
 
 ## 已采用的项目
 
-| 项目 | 在 AIPM 中的作用 | 来源与许可 |
+| 项目 | 在 ORVYN 中的作用 | 来源与许可 |
 | --- | --- | --- |
 | Pi Agent | Agent 会话、工具和执行框架 | [earendil-works/pi](https://github.com/earendil-works/pi) · 包内 LICENSE |
 | Agent Blueprint | Agent 示例、组件、方案与骨架流程 | [hubooooooo/agent-blueprint](https://github.com/hubooooooo/agent-blueprint) · MIT，© Hubo |

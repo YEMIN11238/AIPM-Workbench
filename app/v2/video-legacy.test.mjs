@@ -7,12 +7,12 @@ import { mountVideo } from './video-legacy.mjs'
 const settle = () => new Promise(resolve => setTimeout(resolve, 12))
 const clone = value => structuredClone(value)
 const deferred = () => { let resolve, reject; const promise = new Promise((yes, no) => { resolve = yes; reject = no }); return { promise, resolve, reject } }
-const storyboard = () => ({ title: 'AIPM 工作台', voiceover: '用一句话开始工作。', palette: { background: '#121624', accent: '#91baff', text: '#ffffff' }, scenes: [
-  { id: 's1', duration: 3, title: 'AIPM 工作台', subtitle: '想法变为行动', body: '开场介绍', kind: 'hero', accent: '#91baff' },
+const storyboard = () => ({ title: 'ORVYN', voiceover: '用一句话开始工作。', palette: { background: '#121624', accent: '#91baff', text: '#ffffff' }, scenes: [
+  { id: 's1', duration: 3, title: 'ORVYN', subtitle: '想法变为行动', body: '开场介绍', kind: 'hero', accent: '#91baff' },
   { id: 's2', duration: 4, title: '在同一工作区推进', subtitle: '聊天与项目', body: '展示实际页面', kind: 'showcase', accent: '#91baff', bullets: ['真实执行', '保留资料'] },
   { id: 's3', duration: 3, title: '从今天开始', subtitle: '', body: '收尾', kind: 'outro', accent: '#91baff' },
 ] })
-const project = (id = 'video1') => ({ id, title: id === 'video1' ? 'AIPM 工作台介绍' : '另一支视频', brief: '介绍产品界面与真实功能', duration: 10, style: 'glass', width: 1920, height: 1080, status: 'idle', messages: [], storyboard: null, versions: [], assets: [], budget: { limitYuan: 5, reservedYuan: 0, spentUpperBoundYuan: 0, entries: [], trial: { limitYuan: 5, reservedYuan: 0, spentUpperBoundYuan: 0, remainingYuan: 5, requestsUsed: 0, maxRequests: 3 } }, updatedAt: '2026-10-26T09:00:00Z' })
+const project = (id = 'video1') => ({ id, title: id === 'video1' ? 'ORVYN介绍' : '另一支视频', brief: '介绍产品界面与真实功能', duration: 10, style: 'glass', width: 1920, height: 1080, status: 'idle', messages: [], storyboard: null, versions: [], assets: [], budget: { limitYuan: 5, reservedYuan: 0, spentUpperBoundYuan: 0, entries: [], trial: { limitYuan: 5, reservedYuan: 0, spentUpperBoundYuan: 0, remainingYuan: 5, requestsUsed: 0, maxRequests: 3 } }, updatedAt: '2026-10-26T09:00:00Z' })
 function fixture(t, overrides = {}) {
   const dom = new JSDOM('<main id="video"></main>', { pretendToBeVisual: true }); globalThis.window = dom.window; globalThis.document = dom.window.document
   const projects = new Map([['video1', project()], ['video2', project('video2')]]), calls = [], toasts = [], openedChats = []; let listener, unsubscribed = 0
@@ -119,7 +119,7 @@ test('late project reads and action results cannot replace a newer project or it
   const first = view.open({ id: 'video1' }); await Promise.resolve(); await view.open({ id: 'video2' }); input('继续修改视频', '第二个项目的草稿')
   read.resolve(project('video1')); await first; assert.equal(input('继续修改视频').value, '第二个项目的草稿'); assert.match(document.querySelector('.vs-title').textContent, /另一支视频/)
   button('发送').click(); await Promise.resolve(); document.querySelector('[data-video-id="video1"]').click(); await settle(); input('继续修改视频', '第一个项目的新草稿')
-  send.resolve({ ...projects.get('video2'), status: 'generating' }); await settle(); assert.equal(input('继续修改视频').value, '第一个项目的新草稿'); assert.equal(document.querySelector('.vs-title').textContent, 'AIPM 工作台介绍')
+  send.resolve({ ...projects.get('video2'), status: 'generating' }); await settle(); assert.equal(input('继续修改视频').value, '第一个项目的新草稿'); assert.equal(document.querySelector('.vs-title').textContent, 'ORVYN介绍')
 })
 
 test('project switches and hide preserve drafts; reopening fetches saved progress and destroy unsubscribes', async t => {

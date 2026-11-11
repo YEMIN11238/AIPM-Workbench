@@ -1,4 +1,4 @@
-# AIPM personal desktop
+# ORVYN desktop
 
 [中文](README.zh.md) | English
 
@@ -23,7 +23,7 @@ Chat, resume review, company research, video creation, discovery, Blueprint, GEO
 
 ## Using the workbench
 
-Open `~/工作台/AIPM工作台/AIPM工作台.app`. This local application loads the current source checkout, so keep the checkout and its installed runtimes in place. The application version is 0.4.0 and its main window loads [v2/index.html](v2/index.html), independently of the old renderer shell.
+Open `~/工作台/AIPM工作台/ORVYN.app`. This local application loads the current source checkout, so keep the checkout and its installed runtimes in place. The application version is 0.4.0 and its main window loads [v2/index.html](v2/index.html), independently of the old renderer shell.
 
 1. Open **设置** to check the shared connection. Pro is initially selected; the current model text and small arrow at the lower right of each composer switch directly between Flash and Pro. An existing key is retained when the key field is left blank; enter a key only to configure or replace it.
 2. In **聊天**, choose a work directory when working on an existing project, then describe the outcome you want. A new conversation without a selected directory receives its own workspace. Enter sends; Shift+Enter inserts a line break; ⌘N starts a new conversation.
@@ -79,7 +79,7 @@ Select **简历检查** in the left sidebar to open the locally bundled [AI PM R
 
 Drafts use separate local page storage. The open page retains its current review result when hidden, so editing can continue after switching to other workbench pages. Model actions require an explicit click. Hosted optimization performs at most one revision and one follow-up review per click. PDF export opens the native save dialog; cancellation produces no file. Request failures retain the original resume. Upstream criteria and scores provide review suggestions; the author still checks factual accuracy before applying changes.
 
-Original sources, pinned revision, license and adaptation records live under [integrations/ai-pm-resume-clinic-upstream](integrations/ai-pm-resume-clinic-upstream). An isolated native view exposes only model status/selection, completion and PDF saving; credentials remain in the main process. Local editing assets work offline, while AI review and optimization require network access and a configured shared model. Reopen AIPM after a local integration update to load the new sidebar entry.
+Original sources, pinned revision, license and adaptation records live under [integrations/ai-pm-resume-clinic-upstream](integrations/ai-pm-resume-clinic-upstream). An isolated native view exposes only model status/selection, completion and PDF saving; credentials remain in the main process. Local editing assets work offline, while AI review and optimization require network access and a configured shared model. Reopen ORVYN after a local integration update to load the new sidebar entry.
 
 ## Video creation
 
@@ -142,7 +142,7 @@ Open **电脑权限**, or **工具 → 电脑与本地工具 → 检查电脑权
 | 辅助功能 / Accessibility | Read accessible application text and controls; perform supported click, text, key and scroll actions |
 | 屏幕录制 / Screen Recording | Capture a selected application's window for review and local OCR |
 
-Click **前往系统设置**, enable the appropriate AIPM workbench entry yourself, then click **我已授权，重新检查**. Some macOS versions require reopening the app before a grant takes effect. The agent cannot grant these permissions or approve its own operations. File, terminal and product tools remain usable without desktop permissions.
+Click **前往系统设置**, enable the appropriate ORVYN entry yourself, then click **我已授权，重新检查**. Some macOS versions require reopening the app before a grant takes effect. The agent cannot grant these permissions or approve its own operations. File, terminal and product tools remain usable without desktop permissions.
 
 Computer operation uses native macOS Accessibility, application-window screenshots and local macOS Vision OCR. Pro uses Accessibility text and OCR without receiving screenshot pixels. Flash supports image input: Pi image reads and successful captures attach the actual image to the model request. Trusted captures are bounded, resized JPEGs; failures explicitly report that no image was sent. A result without an image attachment does not establish visual observation. Supported actions include app listing/launch, interface inspection, element clicking, text entry, keys, scrolling and screenshot-based coordinate actions. Actions require current observations of the target app; inspect the actual result after an action.
 
@@ -194,7 +194,7 @@ node apps/aipm-desktop/build-ui.mjs
 node apps/aipm-desktop/build-app.mjs
 ```
 
-The build creates the local app above. `build-app.mjs --install` additionally installs `/Applications/AIPM工作台.app` and refuses to replace an unrelated app. The bundle includes Electron but still loads this checkout; UI changes apply on the next launch. Rebuild after changing Electron, native bridges or icons. Installation does not grant OS permissions or create cloud resources.
+The build creates the local app above. `build-app.mjs --install` additionally installs `/Applications/ORVYN.app` and refuses to replace an unrelated app. The bundle includes Electron but still loads this checkout; UI changes apply on the next launch. Rebuild after changing Electron, native bridges or icons. Installation does not grant OS permissions or create cloud resources.
 
 Focused interface checks run without a model key or desktop permission:
 
@@ -229,3 +229,7 @@ The [local control entry point](companion/CONTROL.md) forwards explicit status, 
 - Model replies and reports can be incomplete or wrong. Evidence checks, GEO review, stage acceptance and sample scores remain user actions. Real model samples alone are not product end-to-end tests.
 - Model/network failures, execution budgets and cancellation can leave partial files. Stop does not roll back earlier changes; inspect the run and workspace before continuing. Restart preserves records and marks unfinished chat runs as interrupted.
 - Local previews are managed processes with explicit stop controls. Deployment additionally needs a real cloud account, project configuration, permissions and approval for actual resource operations; an installed module or completed plan does not mean a product is online.
+
+## Branding compatibility
+
+The public name is ORVYN. Existing data paths, bundle identifiers, internal protocols and the macOS encryption namespace are retained, so saved model connections and projects do not require migration. The application name switches after Electron initializes system encryption.

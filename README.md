@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="docs/assets/cover.svg" width="100%" alt="AIPM Workbench · 让想法进入实际执行" />
+<img src="docs/assets/cover.svg" width="100%" alt="ORVYN · 让想法进入实际执行" />
 
-**面向 AI 产品经理的个人 AI Coding 与 Agent 工作台**
+**面向 AI 产品经理的 AI 产品研发助手**
 
 一句需求之后，继续读写文件、运行代码、操作支持的应用，交付能查看和修改的结果。
 
-[**打开完整介绍与任务回放 ↗**](https://yemin11238.github.io/AIPM-Workbench/) · [完整功能](#可以交给-aipm-的工作) · [实际验证](docs/EVIDENCE.md) · [产品设计](docs/PRODUCT.md) · [面试讲解](docs/INTERVIEW.md)
+[**打开完整介绍与任务回放 ↗**](https://yemin11238.github.io/AIPM-Workbench/) · [完整功能](#可以交给-orvyn-的工作) · [实际验证](docs/EVIDENCE.md) · [产品设计](docs/PRODUCT.md) · [面试讲解](docs/INTERVIEW.md)
 
 [![Source checks](https://github.com/YEMIN11238/AIPM-Workbench/actions/workflows/check.yml/badge.svg)](https://github.com/YEMIN11238/AIPM-Workbench/actions/workflows/check.yml)
 ![macOS](https://img.shields.io/badge/macOS-Desktop-202626?style=flat-square&logo=apple&logoColor=white)
@@ -17,11 +17,11 @@
 
 ## 从一个需求，推进到实际产物
 
-AIPM 将产品工作里的对话、文件和执行组织在一个 macOS 工作台里。选择项目目录，告诉 Agent 要完成什么，它可以读取资料、修改代码和运行命令；获得授权后，还能读取支持的应用界面，执行点击与输入。
+ORVYN 是一款面向 AI 产品经理的桌面 AI 研发助手，基于 Pi Agent 与 DeepSeek API 构建。它把产品工作里的对话、文件和执行组织在同一个应用中。选择项目目录，告诉 Agent 要完成什么，它可以读取资料、修改代码和运行命令；获得授权后，还能读取支持的应用界面，执行点击与输入。
 
 产品开发、公司调研和视频等复杂任务各有专用页面。用户能在工作台里看进度、检查文件和报告、播放视频，并在原项目中继续修改。
 
-<img src="docs/assets/overview.png" alt="AIPM 实际主界面，独立演示工作区" width="100%" />
+<img src="docs/assets/overview.png" alt="ORVYN 实际主界面，独立演示工作区" width="100%" />
 
 **张俊豪主导产品定位、需求、交互、宿主控制与业务适配，通过 AI 辅助开发实现。** Pi 与专用开源项目承担各自的框架或工具职责，保留来源与许可证。
 
@@ -51,7 +51,7 @@ AIPM 将产品工作里的对话、文件和执行组织在一个 macOS 工作�
 
 主聊天中的文件与终端工具可以处理已有项目。桌面工具接入 macOS 辅助功能、窗口截图和本机 OCR，用于支持的应用操作。[查看实际记录与范围 →](docs/EVIDENCE.md)
 
-## 可以交给 AIPM 的工作
+## 可以交给 ORVYN 的工作
 
 | 工作区 | 你提供什么 | 工作台怎样推进 | 你能查看什么 |
 | --- | --- | --- | --- |
@@ -97,14 +97,14 @@ PRD 体检 → 技术适配 → 后端 MVP → 正式前端 → 上线部署 →
 
 截图来自真实启动的独立演示工作区，没有加载私人聊天、API 配置、简历或公司资料。演示项目用于展示界面，不包含虚构的生成成功记录。
 
-## 作为 AIPM，我做了哪些产品工作
+## 我在项目中负责的产品工作
 
 | 工作 | 具体内容 | 可展示的结果 |
 | --- | --- | --- |
 | 需求与范围 | 从持续试用中整理配置分散、流程断开、结果难找和执行中断问题 | 需求、验收条件与任务优先级 |
 | 信息架构与交互 | 确定主聊天、侧栏和专页关系，统一视频制作与预览 | 当前工作台与任务场景页 |
 | Agent 产品设计 | 选择 Pi，明确模型与宿主分工，设计配置、工具和任务控制 | Harness、业务适配与真实执行记录 |
-| 评测与迭代 | 分开判断执行结果、产物质量与用户认可，持续处理失败 | 52 项检查、匿名能力验证及评测规范初稿 |
+| 评测与迭代 | 分开判断执行结果、产物质量与用户认可，持续处理失败 | 54 项检查、匿名能力验证及评测规范初稿 |
 
 [阅读详细产品案例](docs/PRODUCT.md) · [使用面试讲解与问答](docs/INTERVIEW.md)
 
@@ -112,7 +112,7 @@ PRD 体检 → 技术适配 → 后端 MVP → 正式前端 → 上线部署 →
 
 ```mermaid
 flowchart TB
-    U[用户任务与人工确认] --> UI[AIPM 桌面 · 聊天与专用工作区]
+    U[用户任务与人工确认] --> UI[ORVYN 桌面 · 聊天与专用工作区]
     UI --> H[Harness 宿主控制]
     H --> S[会话 · 状态 · 权限 · 费用上界 · 产物]
     H --> P[Pi Agent 执行框架]
@@ -124,11 +124,11 @@ flowchart TB
     O --> U
 ```
 
-Pi 提供 Agent 执行框架。AIPM 在应用层组织任务、控制和结果展示。[沿着代码看模块职责 →](docs/ARCHITECTURE.md)
+Pi 提供 Agent 执行框架。ORVYN 在应用层组织任务、控制和结果展示。[沿着代码看模块职责 →](docs/ARCHITECTURE.md)
 
 ## 验证与运行
 
-独立仓库的 **52 项自动化检查通过**，macOS 原生界面编译与独立启动已验证，GitHub CI 和介绍页部署成功。检查范围与既有任务记录见 [验证文档](docs/VALIDATION.md) 和 [能力证据](docs/EVIDENCE.md)。模型质量和真实任务效果按具体结果核对。
+独立仓库的 **54 项自动化检查通过**，macOS 原生界面编译与独立启动已验证，GitHub CI 和介绍页部署成功。检查范围与既有任务记录见 [验证文档](docs/VALIDATION.md) 和 [能力证据](docs/EVIDENCE.md)。模型质量和真实任务效果按具体结果核对。
 
 ```bash
 git clone https://github.com/YEMIN11238/AIPM-Workbench.git

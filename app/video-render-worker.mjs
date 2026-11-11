@@ -21,7 +21,7 @@ try{
  const options={serveUrl,inputProps:props,puppeteerInstance:browser,browserExecutable,chromeMode:'headless-shell',logLevel:'error'};
  const composition=await selectComposition({...options,id:'AIPMIntro'});
  if(cancelled)throw new Error('视频渲染已停止');
- const videoPath=join(outputDir,'AIPM工作台.mp4'),posterPath=join(outputDir,'封面.png');
+ const videoPath=join(outputDir,'ORVYN.mp4'),posterPath=join(outputDir,'封面.png');
  let last=-1;
  await renderMedia({...options,composition,codec:'h264',audioCodec:'aac',pixelFormat:'yuv420p',outputLocation:videoPath,cancelSignal,concurrency:2,disableSharedMemoryCapture:true,imageFormat:'png',crf:18,x264Preset:'medium',overwrite:false,onProgress:p=>{const value=Math.floor(p.progress*100);if(value!==last){last=value;progress(p.stitchStage==='muxing'?'encoding':'rendering',.12+p.progress*.82,'渲染 '+value+'%',{renderedFrames:p.renderedFrames,encodedFrames:p.encodedFrames,totalFrames:composition.durationInFrames});}}});
  progress('poster',.95,'生成真实画面封面');

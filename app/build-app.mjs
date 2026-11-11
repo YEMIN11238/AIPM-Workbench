@@ -10,11 +10,11 @@ const directory = fileURLToPath(new URL('.', import.meta.url))
 const require = createRequire(import.meta.url)
 const electron = require('electron')
 const workspace = resolve(directory, '..', 'dist')
-const bundle = join(workspace, 'AIPM工作台.app')
+const bundle = join(workspace, 'ORVYN.app')
 mkdirSync(workspace, { recursive: true })
 if (!existsSync(bundle)) execFileSync('/usr/bin/ditto', [dirname(dirname(dirname(electron))), bundle])
 const plist = join(bundle, 'Contents/Info.plist')
-for (const [key, value] of Object.entries({ CFBundleIdentifier: 'local.personal.aipm.workbench', CFBundleName: 'AIPM 工作台', CFBundleDisplayName: 'AIPM 工作台', CFBundleExecutable: 'AIPMWorkbench', CFBundleIconFile: 'AIPM.icns', CFBundleShortVersionString: '0.4.0', CFBundleVersion: '0.4.0', LSApplicationCategoryType: 'public.app-category.productivity' })) {
+for (const [key, value] of Object.entries({ CFBundleIdentifier: 'local.personal.aipm.workbench', CFBundleName: 'ORVYN', CFBundleDisplayName: 'ORVYN', CFBundleExecutable: 'AIPMWorkbench', CFBundleIconFile: 'AIPM.icns', CFBundleShortVersionString: '0.4.0', CFBundleVersion: '0.4.0', LSApplicationCategoryType: 'public.app-category.productivity' })) {
   execFileSync('/usr/bin/plutil', ['-replace', key, '-string', value, plist])
 }
 const quote = value => `'${value.replaceAll("'", "'\\''")}'`
@@ -27,7 +27,7 @@ execFileSync('/System/Library/Frameworks/CoreServices.framework/Frameworks/Launc
 console.log(bundle)
 
 if (process.argv.includes('--install')) {
-  const destination = '/Applications/AIPM工作台.app'
+  const destination = '/Applications/ORVYN.app'
   const registration = '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister'
   const staged = `/Applications/.aipm-install-${randomUUID()}.app`
   const previous = `/Applications/.aipm-previous-${randomUUID()}.app`

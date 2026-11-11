@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'">
-  <title>AIPM 工作台</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="neutral-theme.css"><link rel="stylesheet" href="document-content.css"><link rel="stylesheet" href="workbench.css"><link rel="stylesheet" href="blueprint.css"><link rel="stylesheet" href="blueprint-product.css"><link rel="stylesheet" href="blueprint-chat.css"><link rel="stylesheet" href="studio.css"><link rel="stylesheet" href="geo.css"><link rel="stylesheet" href="starter.css">
+  <title>ORVYN</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="neutral-theme.css"><link rel="stylesheet" href="document-content.css"><link rel="stylesheet" href="workbench.css"><link rel="stylesheet" href="blueprint.css"><link rel="stylesheet" href="blueprint-product.css"><link rel="stylesheet" href="blueprint-chat.css"><link rel="stylesheet" href="studio.css"><link rel="stylesheet" href="geo.css"><link rel="stylesheet" href="starter.css">
 </head>
 <body>
   <header class="titlebar"><div class="title-right"><span class="local-dot"></span>本地工作空间<span class="version">V0.3</span></div></header>
   <div class="workspace" id="workspace" data-page="home">
     <nav class="icon-rail" aria-label="工作台导航">
-      <div class="rail-logo"><img src="assets/logo.png" alt="AIPM"></div>
+      <div class="rail-logo"><img src="assets/logo.png" alt="ORVYN"></div>
       <button id="nav-home" class="rail-button active" title="项目首页" aria-label="项目首页"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg></button>
       <button id="nav-documents" class="rail-button" title="全部文档" aria-label="全部文档"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></button>
       <button id="nav-blueprint" class="rail-button"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 8h4M3 16h4M17 12h4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
@@ -18,7 +18,7 @@
       <div class="rail-spacer"></div><button id="rail-settings" class="rail-button" title="设置" aria-label="设置">⚙</button><span class="rail-profile">我</span>
     </nav>
     <aside class="sidebar">
-      <div class="brand"><div><strong>AIPM 工作台</strong><small>个人工作台</small></div></div>
+      <div class="brand"><div><strong>ORVYN</strong><small>AI 产品研发助手</small></div></div>
       <button class="primary new-project" id="new-project">＋ 新建项目</button>
       <button id="sidebar-blueprint" class="studio-side-action"><span aria-hidden="true">↗</span><span><strong id="studio-nav-label"></strong><small id="studio-nav-hint"></small></span></button>
       <button id="sidebar-starter" class="studio-side-action"><span aria-hidden="true">▸</span><span><strong>开发与上线</strong><small>需求体检 · 开发 · 预览 · 部署</small></span></button>
@@ -29,7 +29,7 @@
     </aside>
     <section id="home-view" class="home-view">
       <div class="home-toolbar"><button id="top-new-project" class="primary">＋ 新建项目</button><button id="search" class="secondary">⌕ 搜索内容</button></div>
-      <div class="home-panel"><div class="home-greeting"><span class="studio-eyebrow"><i></i>AIPM WORKSPACE</span><h1 id="greeting"></h1><p id="studio-subtitle"></p></div>
+      <div class="home-panel"><div class="home-greeting"><span class="studio-eyebrow"><i></i>ORVYN</span><h1 id="greeting"></h1><p id="studio-subtitle"></p></div>
         <div id="studio-start" class="studio-start"></div><div id="studio-summary" class="studio-summary"></div>
         <div class="gallery-header"><span id="gallery-label">我的项目 <b id="gallery-count">0</b></span><span class="gallery-note" id="gallery-note">从想法，到有依据的文档</span></div>
         <div id="project-gallery" class="project-gallery"></div><div id="document-library" class="document-library hidden"></div>

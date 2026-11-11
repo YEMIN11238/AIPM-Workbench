@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "main": "app/main.mjs",
-  "description": "A personal Agent workbench for AI product managers, built with Pi Agent and an application harness.",
+  "description": "ORVYN is a desktop AI product development assistant powered by Pi Agent and DeepSeek.",
   "author": "张俊豪 (YEMIN11238)",
   "engines": {
     "node": ">=24"
@@ -13,7 +13,7 @@
     "start": "node scripts/start.mjs",
     "build:ui": "node app/build-ui.mjs",
     "build:app": "node app/build-app.mjs",
-    "test": "node --test app/startup.test.mjs app/runtime-paths.test.mjs app/resume-clinic-loader.test.mjs app/v2/app.test.mjs app/v2/modules.test.mjs app/model-api.test.mjs app/model-ipc.test.mjs app/pi-execution-limits.test.mjs app/pi-cost-guard.test.mjs app/video-media.test.mjs",
+    "test": "node --test app/app-branding.test.mjs app/startup.test.mjs app/runtime-paths.test.mjs app/resume-clinic-loader.test.mjs app/v2/app.test.mjs app/v2/modules.test.mjs app/model-api.test.mjs app/model-ipc.test.mjs app/pi-execution-limits.test.mjs app/pi-cost-guard.test.mjs app/video-media.test.mjs",
     "check:public": "node scripts/check-public.mjs",
     "site": "node scripts/serve-site.mjs"
   },
@@ -33,5 +33,6 @@
     "jsdom": "29.1.1",
     "sharp": "^0.35.3",
     "typescript": "5.8.3"
-  }
+  },
+  "productName": "ORVYN"
 }

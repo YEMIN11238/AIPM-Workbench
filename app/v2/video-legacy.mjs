@@ -6,7 +6,7 @@ const C = Object.freeze({
   title: '视频创作', intro: '把产品介绍写成分镜，再在本机渲染为视频。可以继续聊天改稿，保留每次成片。',
   create: '新建视频', name: '视频名称', brief: '视频想介绍什么', duration: '时长（秒）', budget: '预算上限（元）',
   empty: '创建一个视频项目，或从左侧继续已有项目。', begin: '生成分镜', send: '发送', prompt: '继续修改视频',
-  placeholder: '比如：先介绍 AIPM 工作台，再展示玻璃界面和主要功能，最后加一句收尾…',
+  placeholder: '比如：先介绍 ORVYN，再展示玻璃界面和主要功能，最后加一句收尾…',
   render: '渲染视频', cancel: '停止当前任务', folder: '打开项目文件夹', preview: '打开视频预览',
   budgetNote: '费用按官方高峰价格估算保守上界，不是供应商账单。脚本与分镜使用工作台统一模型，本地渲染不调用额外付费视频 API。',
   unsaved: '还有未发送或未保存的内容，请先发送、保存或清空后离开。',
@@ -98,7 +98,7 @@ export function mountVideo({ container, api, events = {}, toast = () => {}, open
   }
   function renderNew() {
     body.append(el('h1', 'vs-title', C.title), note(C.intro), note(C.source)); renderMotionSection(body)
-    const form = el('form', 'vs-create'), title = field(C.name, newDraft.title, value => { newDraft.title = value }, { placeholder: '例如：AIPM 工作台介绍' }), brief = field(C.brief, newDraft.brief, value => { newDraft.brief = value }, { area: true, placeholder: '面向谁，展示什么页面与功能，希望什么风格？' })
+    const form = el('form', 'vs-create'), title = field(C.name, newDraft.title, value => { newDraft.title = value }, { placeholder: '例如：ORVYN介绍' }), brief = field(C.brief, newDraft.brief, value => { newDraft.brief = value }, { area: true, placeholder: '面向谁，展示什么页面与功能，希望什么风格？' })
     title.input.required = true; title.input.maxLength = 100; brief.input.required = true; brief.input.maxLength = 10000
     const options = el('div', 'vs-two-fields'), seconds = field(C.duration, newDraft.duration, value => { newDraft.duration = value }, { type: 'number', min: 1, max: 60, step: 1 }), budget = field(C.budget, newDraft.budgetYuan, value => { newDraft.budgetYuan = value }, { type: 'number', min: .01, max: 5, step: .01 })
     options.append(seconds.node, budget.node)
@@ -210,7 +210,7 @@ export function mountVideo({ container, api, events = {}, toast = () => {}, open
         const project = motion.savedProjects.find(item => item.id === value)
         motion.prepared = project ? { id: project.id, title: project.title } : null; motion.preparedSignature = ''; motion.generated = null; motion.output = null; motion.checking = false; ++motion.outputRevision; render()
       }))
-      const form = el('form', 'vs-motion-form'), title = field('动效名称（可选）', motion.title, value => { motion.title = value }, { placeholder: '留空会从描述中取名' }), brief = field('用一句话描述动效', motion.brief, value => { motion.brief = value }, { area: true, placeholder: '例如：用动态字体和形变做一支 10 秒的 AIPM 工作台宣传片' })
+      const form = el('form', 'vs-motion-form'), title = field('动效名称（可选）', motion.title, value => { motion.title = value }, { placeholder: '留空会从描述中取名' }), brief = field('用一句话描述动效', motion.brief, value => { motion.brief = value }, { area: true, placeholder: '例如：用动态字体和形变做一支 10 秒的 ORVYN宣传片' })
       title.input.maxLength = 100; brief.input.required = true; brief.input.maxLength = 10000
       const choices = {}; for (const system of motion.info.designSystems || []) choices[system.id] = system.name || system.id
       const options = el('div', 'vs-two-fields'); options.append(field('动效时长（秒）', motion.duration, value => { motion.duration = value }, { type: 'number', min: 1, max: 120, step: 1 }).node, select('动效设计风格', choices, motion.designSystem, value => { motion.designSystem = value }))

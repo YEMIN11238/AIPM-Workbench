@@ -3,5 +3,7 @@
   "private": true,
   "version": "0.4.0",
   "type": "module",
-  "main": "main.mjs"
+  "main": "main.mjs",
+  "productName": "ORVYN",
+  "description": "A desktop AI product development assistant powered by Pi Agent and DeepSeek."
 }

@@ -6,7 +6,7 @@ import { mountModelSelectors } from './model-selector.mjs'
 import { mountResumeClinic } from './resume-clinic.mjs'
 
 const copy = Object.freeze({
-  brand: 'AIPM 工作台', newChat: '新对话', chat: '聊天', projects: '项目', blueprint: 'Agent Blueprint', starter: 'AI 产品开发', video: '视频生成', resume: '简历检查', tools: '工具', companion: '大肥鱼后台', recent: '最近对话', settings: '设置', permissions: '电脑权限',
+  brand: 'ORVYN', newChat: '新对话', chat: '聊天', projects: '项目', blueprint: 'Agent Blueprint', starter: 'AI 产品开发', video: '视频生成', resume: '简历检查', tools: '工具', companion: '大肥鱼后台', recent: '最近对话', settings: '设置', permissions: '电脑权限',
   welcome: '今天想完成什么？', welcomeText: '直接交代任务。我可以处理项目文件、运行代码，也能在授权后操作电脑里的应用。',
   prompt: '描述你想完成的事，也可以继续追问或补充要求…', send: '发送指令', stop: '停止执行', chooseFolder: '选择工作目录', defaultFolder: '工作台工作区',
   activity: '执行记录', artifacts: '产物', back: '返回', close: '关闭', nothingRun: '执行过程会出现在这里。', noArtifacts: '本轮生成或修改的文件会出现在这里。',
@@ -46,7 +46,7 @@ export async function mountWorkbench({ container, api, events = globalThis.windo
   const button = (label, action, cls = 'v2-button') => { const n = el('button', cls, label); n.type = 'button'; n.onclick = guarded(action); return n }
   const root = el('div', 'v2-workbench'), sidebar = el('aside', 'v2-sidebar'), main = el('main', 'v2-main')
   root.dataset.page = 'chat'; sidebar.setAttribute('aria-label', '工作台导航')
-  const brand = el('div', 'v2-brand'); brand.append(el('span', 'v2-brand-mark', 'P'), el('span', '', copy.brand)); sidebar.append(brand)
+  const brand = el('div', 'v2-brand'); brand.append(el('span', 'v2-brand-mark', 'O'), el('span', '', copy.brand)); sidebar.append(brand)
   const newButton = button('', () => newChat(), 'v2-nav-button v2-new-chat'); newButton.setAttribute('aria-label', copy.newChat); newButton.append(el('span', '', '＋ ' + copy.newChat), el('span', 'v2-shortcut', '⌘ N')); sidebar.append(newButton)
   const nav = el('nav', 'v2-nav'), navButtons = {}
   for (const [page, label, icon] of [['chat', copy.chat, '○'], ['projects', copy.projects, '▤'], ['blueprint', copy.blueprint, '◇'], ['starter', copy.starter, '↗'], ['video', copy.video, '▷'], ['resume', copy.resume, '▧'], ['tools', copy.tools, '◇'], ['companion', copy.companion, '♧']]) { const n = button('', () => show(page), 'v2-nav-button'); n.setAttribute('aria-label', label); n.append(el('span', 'v2-nav-symbol', icon), el('span', '', label)); navButtons[page] = n; nav.append(n) }
@@ -302,7 +302,7 @@ export async function mountWorkbench({ container, api, events = globalThis.windo
     function renderPermissionCards(permissions) {
       content.replaceChildren()
       for (const [kind, key, label, description] of [['accessibility', 'accessibility', '辅助功能', '让 Pi 读取应用中的按钮和文字，并执行点击、输入、按键。'], ['screen', 'screenRecording', '屏幕录制', '让 Pi 获取指定应用的窗口截图。授权后，截图仍只在当前任务需要时获取。']]) { const card = el('section', 'v2-permission-card'), heading = el('h3'), ready = !!permissions?.[key]; heading.append(el('span', '', label), el('span', 'v2-permission-state' + (ready ? ' ready' : ''), ready ? copy.permissionReady : copy.permissionPending)); card.append(heading, el('p', '', description)); if (!ready) card.append(button(copy.permissionOpen, async () => { await call('piRequestPermission', kind); if (dialog === d) await refresh() })); content.append(card) }
-      content.append(el('p', '', '在系统设置里找到「AIPM 工作台」并开启对应权限。某些 macOS 版本需要重新打开工作台后生效；未授权时仍可使用文件、终端和产品工具。'))
+      content.append(el('p', '', '在系统设置里找到「ORVYN」并开启对应权限。某些 macOS 版本需要重新打开工作台后生效；未授权时仍可使用文件、终端和产品工具。'))
     }
     footer.append(button(copy.permissionRefresh, refresh), button(copy.close, closeDialog, 'v2-button primary')); renderPermissionCards(state.status?.permissions); await refresh()
   }
